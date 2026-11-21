@@ -1,5 +1,3 @@
-import java.util.Arrays;
-
 class Solution {
     public boolean checkInclusion(String s1, String s2) {
 
@@ -8,15 +6,21 @@ class Solution {
 
         if (n1 > n2) return false;
 
-        char[] arr1 = s1.toCharArray();
-        Arrays.sort(arr1);
+        int[] arr1 = new int[26];
+        int[] arr2 = new int[26];
 
-        for (int i = 0; i <= n2 - n1; i++) {
+        for (int i = 0; i < n1; i++) {
+            arr1[s1.charAt(i) - 'a']++;
+            arr2[s2.charAt(i) - 'a']++;
+        }
 
-            String str = s2.substring(i, i + n1);
+        if (Arrays.equals(arr1, arr2)) return true;
 
-            char[] arr2 = str.toCharArray();
-            Arrays.sort(arr2);
+        for (int i = n1; i < n2; i++) {
+
+            arr2[s2.charAt(i) - 'a']++;
+
+            arr2[s2.charAt(i - n1) - 'a']--;
 
             if (Arrays.equals(arr1, arr2)) {
                 return true;
